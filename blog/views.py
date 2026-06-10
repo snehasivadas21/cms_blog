@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.views.decorators.cache import never_cache
 from .serializers import BlogSerializer, LikeSerializer, AttachmentSerializer
 from .models import Blog, Like ,Attachment
 from .forms import BlogForm, AttachmentForm
@@ -136,11 +137,13 @@ def blog_detail(request,id):
                   {'blog':blog,'comments':comments,'attachments':attachments,'form':CommentForm(),'is_liked':is_liked,'like_count':like_count})
 
 @login_required
+@never_cache
 def my_blogs(request):
     blogs = Blog.objects.filter(author=request.user).order_by('-created_at')
     return render(request,'my_blogs.html',{'blogs':blogs})
 
 @login_required
+@never_cache
 def blog_create(request):
     if request.method == 'POST':
         form = BlogForm(request.POST)
@@ -159,6 +162,7 @@ def blog_create(request):
     return render(request,'blog_create.html',{'form':form})   
 
 @login_required
+@never_cache
 def blog_update(request,id):
     blog = get_object_or_404(Blog,id=id,author=request.user)
 
@@ -179,6 +183,7 @@ def blog_update(request,id):
     return render(request,'blog_update.html',{'form':form,'blog':blog})
 
 @login_required
+@never_cache
 def blog_delete(request,id):
     blog = get_object_or_404(Blog,id=id,author=request.user)
 
@@ -190,6 +195,7 @@ def blog_delete(request,id):
     return render(request,'blog_delete.html',{'blog':blog})
 
 @login_required
+@never_cache
 def attachment_upload(request,id):
     blog = get_object_or_404(Blog,id=id,author=request.user)
 
