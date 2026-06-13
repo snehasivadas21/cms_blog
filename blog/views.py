@@ -216,6 +216,21 @@ def attachment_upload(request,id):
     return render(request,'attachment_upload.html',{'form':form,'blog':blog}) 
 
 @login_required
+def attachment_delete(request,id):
+    attachment = get_object_or_404(Attachment,id=id)
+
+    if attachment.blog.author != request.user:
+        raise PermissionDenied("you can delete only your own attachment")
+    
+    blog_id = attachment.blog.id
+
+    if request.method == 'POST':
+        attachment.delete()
+
+        messages.success(request,'Attachment deleted successfully')
+    return redirect('blog_detail',id=blog_id)    
+
+@login_required
 def like_blog(request,id):
     blog = get_object_or_404(Blog,id=id)
     
