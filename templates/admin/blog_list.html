@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h2>Manage Blogs</h2>
+
+<table class="table table-bordered table-striped">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Title</th>
+<th>Author</th>
+<th>Published</th>
+<th>Views</th>
+<th>Created</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for blog in blogs %}
+
+<tr>
+
+<td>{{ blog.id }}</td>
+
+<td>{{ blog.title }}</td>
+
+<td>{{ blog.author.username }}</td>
+
+<td>
+
+{% if blog.is_published %}
+
+<span class="badge bg-success">
+
+Published
+
+</span>
+
+{% else %}
+
+<span class="badge bg-warning">
+
+Draft
+
+</span>
+
+{% endif %}
+
+</td>
+
+<td>{{ blog.view_count }}</td>
+
+<td>{{ blog.created_at }}</td>
+
+<td>
+
+<form method="post"
+      action="{% url 'blog_delete' blog.id %}">
+
+{% csrf_token %}
+
+<button type="submit"
+        class="btn btn-danger btn-sm"
+        onclick="return confirm('Delete this blog?')">
+
+Delete
+
+</button>
+
+</form>
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

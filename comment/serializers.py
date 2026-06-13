@@ -15,7 +15,3 @@ class CommentSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("comment altease 3 character required")
         return value    
 
-class CommentModerationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = ['status']

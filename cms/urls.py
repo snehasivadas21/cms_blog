@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/user/',include('user.urls')),
     path('api/blog/',include('blog.urls')),
     path('api/comment/',include('comment.urls')),
+    path('api/admin/',include('customadmin.urls')),
 
     path('',include('frontend.urls'))
 ]

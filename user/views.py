@@ -42,6 +42,8 @@ def login_view(request):
         if user:
             login(request,user)
             messages.success(request,'Login successful')
+            if user.is_staff:
+                return redirect('dashboard')
             return redirect('blog_list')
         else:
             messages.error(request,'Invalid credentials')

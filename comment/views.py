@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .serializers import CommentSerializer, CommentModerationSerializer
+from .serializers import CommentSerializer
 from .models import Comment
 from .forms import CommentForm
 from blog.models import Blog
@@ -49,17 +49,7 @@ class CommentDeleteView(DestroyAPIView):
         if comment.author != self.request.user:
             raise PermissionDenied("you can delete only your own comment")
         return comment
-
-class CommentModerationView(UpdateAPIView):
-    permission_classes=[IsAuthenticated]
-    serializer_class=CommentModerationSerializer
-    queryset=Comment.objects.all()
-
-    def get_object(self):
-        comment = super().get_object()
-        if not self.request.user.is_staff:
-            raise PermissionDenied("only admin can moderate the comment")
-        return comment
+    
 
 #frontend requirement
 @login_required

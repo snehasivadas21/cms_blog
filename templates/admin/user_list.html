@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h2>Manage Users</h2>
+
+<table class="table table-bordered table-striped">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Username</th>
+<th>Email</th>
+<th>Date Joined</th>
+<th>Role</th>
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for user in users %}
+
+<tr>
+
+<td>{{ user.id }}</td>
+
+<td>{{ user.username }}</td>
+
+<td>{{ user.email }}</td>
+
+<td>{{ user.date_joined }}</td>
+
+<td>
+
+{% if user.is_staff %}
+
+<span class="badge bg-danger">
+    Staff
+</span>
+
+{% else %}
+
+<span class="badge bg-primary">
+    User
+</span>
+
+{% endif %}
+
+</td>
+
+<td>
+
+{% if not user.is_superuser %}
+
+<form method="post"
+      action="{% url 'admin_user_delete' user.id %}">
+
+    {% csrf_token %}
+
+    <button type="submit"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Delete this user?')">
+
+        Delete
+
+    </button>
+
+</form>
+
+{% else %}
+
+<span class="text-muted">
+
+Protected
+
+</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+{% endblock %}

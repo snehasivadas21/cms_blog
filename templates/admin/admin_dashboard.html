@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h2 class="mb-4">
+    Admin Dashboard
+</h2>
+
+<div class="row">
+
+<div class="col-md-4">
+<div class="card text-center mb-3">
+
+<div class="card-body">
+
+<h3>{{ total_users }}</h3>
+
+<p>Total Users</p>
+
+</div>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card text-center mb-3">
+
+<div class="card-body">
+
+<h3>{{ total_blogs }}</h3>
+
+<p>Total Blogs</p>
+
+</div>
+
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card text-center mb-3">
+
+<div class="card-body">
+
+<h3>{{ total_comments }}</h3>
+
+<p>Total Comments</p>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}
