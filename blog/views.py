@@ -197,7 +197,10 @@ def blog_delete(request,id):
 @login_required
 @never_cache
 def attachment_upload(request,id):
-    blog = get_object_or_404(Blog,id=id,author=request.user)
+    if request.user.is_staff:
+       blog = get_object_or_404(Blog, id=id)
+    else:
+        blog = get_object_or_404(Blog,id=id,author=request.user)
 
     if request.method == 'POST':
         form = AttachmentForm(request.POST,request.FILES)

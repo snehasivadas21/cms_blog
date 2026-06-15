@@ -6,6 +6,13 @@
 
 <h2>Manage Blogs</h2>
 
+<a href="{% url 'admin_blog_create' %}"
+   class="btn btn-success mb-3">
+
+    Create Blog
+
+</a>
+
 <table class="table table-bordered table-striped">
 
 <thead>
@@ -64,8 +71,24 @@ Draft
 
 <td>
 
+<a href="{% url 'blog_detail' blog.id %}"
+   class="btn btn-info btn-sm">
+    View
+</a>      
+
+<a href="{% url 'admin_blog_update' blog.id %}"
+   class="btn btn-warning btn-sm">
+   Edit
+</a>  
+
+<a href="{% url 'attachment_upload' blog.id %}"
+   class="btn btn-secondary btn-sm">
+    Upload Image
+</a>
+
 <form method="post"
-      action="{% url 'blog_delete' blog.id %}">
+      action="{% url 'admin_blog_delete' blog.id %}"
+      style = "display:inline">
 
 {% csrf_token %}
 
